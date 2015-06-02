@@ -62,6 +62,7 @@ public class TableViewController implements Initializable {
     private ObservableList<Notificacao> masterData = FXCollections.observableArrayList();
     private ObservableList<Notificacao> filteredData = FXCollections.observableArrayList();
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Tableview Iniciada...");
@@ -69,7 +70,7 @@ public class TableViewController implements Initializable {
         filteredData.addAll(masterData);
         tbPaciente.setItems(filteredData);
 
-        colDataNascimento.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Notificacao, String>, ObservableValue<String>>() {
+        colDataNotificacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Notificacao, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Notificacao, String> n) {
                 return new SimpleObjectProperty<>(FORMART_BR.format(n.getValue().getHoje()));
@@ -93,7 +94,7 @@ public class TableViewController implements Initializable {
         colDataNascimento.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Notificacao, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Notificacao, String> n) {
-                return new SimpleObjectProperty<String>(FORMART_BR.format(n.getValue().getPaciente().getDataNascimento()));
+                return new SimpleObjectProperty<>(FORMART_BR.format(n.getValue().getPaciente().getDataNascimento()));
             }
         });
 
@@ -123,6 +124,7 @@ public class TableViewController implements Initializable {
                 updateFilteredData();
             }
         });
+
 
     }
     public void preencherTabela(ObservableList<Notificacao> obs){
@@ -173,5 +175,13 @@ public class TableViewController implements Initializable {
         ArrayList<TableColumn<Notificacao, ?>> sortOrder = new ArrayList<>(tbPaciente.getSortOrder());
         tbPaciente.getSortOrder().clear();
         tbPaciente.getSortOrder().addAll(sortOrder);
+    }
+
+    public TableView<Notificacao> getTbPaciente() {
+        return tbPaciente;
+    }
+
+    public ObservableList<Notificacao> getMasterData() {
+        return masterData;
     }
 }

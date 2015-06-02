@@ -33,7 +33,7 @@ public class Notificacao {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_Nascimento" , nullable = false)
+    @Column(name = "not_hoje" , nullable = false)
     public Date getHoje() {
         return hoje;
     }

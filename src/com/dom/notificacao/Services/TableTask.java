@@ -22,10 +22,11 @@ public class TableTask extends Task<ObservableList<Notificacao>>{
 
     @Override
     protected ObservableList<Notificacao> call() throws Exception {
+        ObservableList<Notificacao> n = user.listar(dao);
         for(int i= 0; i<500; i++){
             updateProgress(i,500);
             Thread.sleep(5);
         }
-        return user.listar(dao);
+        return n;
     }
 }

@@ -11,6 +11,8 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.BoundingBox;
@@ -46,17 +48,9 @@ public class FormMainControlller implements Initializable {
     private Stage st;
     private boolean maximized;
     private BoundingBox savedBounds;
-
-
-
-
-
-
     @FXML private Region veil;
     @FXML private ProgressBar progressBar;
     @FXML private Text txtStatus;
-    //@FXML private CalendarPicker2 dpATE = new CalendarPicker2();
-   // @FXML private CalendarPicker2 dpDE  = new CalendarPicker2();
     private DatePicker dpDE = new DatePicker();
     private DatePicker dpATE = new DatePicker();
     @FXML private AnchorPane ApSlide;
@@ -83,7 +77,6 @@ public class FormMainControlller implements Initializable {
                 st = (Stage) veil.getScene().getWindow();
                 user = UserSingleton.getInstance().getUser();
                 listService();
-
             }
         });
     }
@@ -93,7 +86,7 @@ public class FormMainControlller implements Initializable {
      */
     private void initList(){
         ObservableList<String> menuItem = FXCollections.observableArrayList();
-        menuItem.addAll("Notificar" , "Relatórios" , "Suporte","Sobre");
+        menuItem.addAll("Principal","Notificar" , "Relatórios" , "Suporte","Sobre");
         listMenu.getItems().addAll(menuItem);
     }
     /**
@@ -108,10 +101,17 @@ public class FormMainControlller implements Initializable {
     private void listService(){
         final TableService service = new TableService(user , new NotificacaoDAO());
         progressBar.progressProperty().bind(service.progressProperty());
+        progressBar.visibleProperty().bind(service.runningProperty());
         txtStatus.visibleProperty().bind(service.runningProperty());
         veil.visibleProperty().bind(service.runningProperty());
+     //   TableViewController.tbController.getTbPaciente().itemsProperty().bind(service.valueProperty());
         service.start();
-
+        service.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent workerStateEvent) {
+                TableViewController.tbController.getMasterData().addAll(service.getValue());
+            }
+        });
 
     }
     public void listMouseClick(MouseEvent me){
