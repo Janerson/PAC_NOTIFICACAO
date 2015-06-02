@@ -1,11 +1,11 @@
 package com.dom.notificacao.controller;
 
 import com.dom.notificacao.model.entity.Notificacao;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +17,6 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -58,18 +57,13 @@ public class TableViewController implements Initializable {
 
     @FXML private TextField ctfPesquisa;
     private final SimpleDateFormat FORMART_BR = new SimpleDateFormat("dd/MM/yyyy");
-
     private ObservableList<Notificacao> masterData = FXCollections.observableArrayList();
-    private ObservableList<Notificacao> filteredData = FXCollections.observableArrayList();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Tableview Iniciada...");
-        tbController = this;
-        filteredData.addAll(masterData);
-        tbPaciente.setItems(filteredData);
 
+        tbController = this;
+        tbPaciente.setItems(masterData);
         colDataNotificacao.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Notificacao, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Notificacao, String> n) {
@@ -111,75 +105,39 @@ public class TableViewController implements Initializable {
                 return new SimpleObjectProperty<String>(n.getValue().getResponsavel().getNome());
             }
         });
-        masterData.addListener(new ListChangeListener<Notificacao>() {
+        initFilter();
+
+    }
+    private void initFilter(){
+        ctfPesquisa.textProperty().addListener(new InvalidationListener() {
             @Override
-            public void onChanged(Change<? extends Notificacao> change) {
-                updateFilteredData();
+            public void invalidated(Observable observable) {
+                if(ctfPesquisa.textProperty().get().isEmpty()){
+                    tbPaciente.setItems(masterData);
+                    return;
+                }
+
+                ObservableList<Notificacao> tableItem = FXCollections.observableArrayList();
+                ObservableList<TableColumn<Notificacao, ?>>cols = tbPaciente.getColumns();
+                for(int i=0; i<masterData.size(); i++){
+                    for(int j=0; j<cols.size(); j++){
+                        TableColumn col = cols.get(j);
+                        String cellValue = col.getCellData(masterData.get(i)).toString();
+                        if(cellValue.toLowerCase().contains(ctfPesquisa.textProperty().get().toLowerCase())){
+                            tableItem.add(masterData.get(i));
+                            break;
+                        }
+                    }
+                }
+                tbPaciente.setItems(tableItem);
             }
         });
-
-        ctfPesquisa.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                updateFilteredData();
-            }
-        });
-
-
     }
     public void preencherTabela(ObservableList<Notificacao> obs){
         masterData.clear();
         masterData.addAll(obs);
     }
-    /**
-     * Updates the filteredData to contain all data from the masterData that
-     * matches the current filter.
-     */
-    private void updateFilteredData() {
-        filteredData.clear();
 
-        for (Notificacao p : masterData) {
-            if (matchesFilter(p)) {
-                filteredData.add(p);
-            }
-        }
-
-        // Must re-sort table after items changed
-        reapplyTableSortOrder();
-    }
-
-    /**
-     * Returns true if the person matches the current filter. Lower/Upper case
-     * is ignored.
-     *
-     * @param n
-     * @return
-     */
-    private boolean matchesFilter(Notificacao n) {
-        String filterString = ctfPesquisa.getText();
-        if (filterString == null || filterString.isEmpty()) {
-            // No filter --> Add all.
-            return true;
-        }
-
-        String lowerCaseFilterString = filterString.toLowerCase();
-
-        if (n.getPaciente().getNome().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
-            return true;
-        }
-
-        return false; // Does not match
-    }
-
-    private void reapplyTableSortOrder() {
-        ArrayList<TableColumn<Notificacao, ?>> sortOrder = new ArrayList<>(tbPaciente.getSortOrder());
-        tbPaciente.getSortOrder().clear();
-        tbPaciente.getSortOrder().addAll(sortOrder);
-    }
-
-    public TableView<Notificacao> getTbPaciente() {
-        return tbPaciente;
-    }
 
     public ObservableList<Notificacao> getMasterData() {
         return masterData;

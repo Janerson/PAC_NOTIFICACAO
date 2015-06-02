@@ -7,6 +7,8 @@ import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by DOM on 12/05/2015.
@@ -18,7 +20,9 @@ import java.util.List;
  */
  public abstract class DAOImpl<T, PK extends Serializable> implements IDAO<T , PK> {
 
-    private final Class classe;
+    private  Class classe;
+
+    private Logger log = Logger.getLogger(DAOImpl.class.getName());
 
     protected DAOImpl(Class c) {
         classe = c;
@@ -31,17 +35,20 @@ import java.util.List;
      */
     @Override
     public boolean save(T entity) {
+        log.log(Level.ALL , "Saving..."+entity);
         Transaction tx = getSession().beginTransaction();
         try{
             getSession().clear();
             getSession().saveOrUpdate(entity);
             tx.commit();
+            log.log(Level.FINER , "Saved"+entity);
         }catch (Exception e){
              e.printStackTrace();
             tx.rollback();
             return false;
         }finally {
             //closeSession();
+
         }
 
         return true;

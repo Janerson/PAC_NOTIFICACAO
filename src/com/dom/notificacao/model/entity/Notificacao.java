@@ -86,4 +86,9 @@ public class Notificacao {
     public void setNotification(String notification) {
         this.notification = notification;
     }
+
+    @Override
+    public String toString() {
+        return "Notificacao";
+    }
 }
