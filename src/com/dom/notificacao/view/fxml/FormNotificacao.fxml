@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import eu.schudt.javafx.controls.calendar.DatePicker?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="258.0" prefWidth="668.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.FormNotifController">
+  <children>
+    <HBox spacing="5.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="207.0">
+      <children>
+        <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+        <Button mnemonicParsing="false" onAction="#limpar" text="Limpar" />
+        <Button mnemonicParsing="false" onAction="#deletar" text="Deletar" />
+        <Button mnemonicParsing="false" onAction="#notificar" text="Notificar" />
+      </children>
+    </HBox>
+    <GridPane id="GridPane" fx:id="gpTop" layoutX="14.0" layoutY="26.0">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Hoje" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <DatePicker fx:id="dpHoje" prefHeight="25" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfPaciente" prefHeight="25.0" prefWidth="346.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paciente" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <ComboBox fx:id="comboSexo" prefHeight="25.0" prefWidth="150.0" promptText="Selecione o Sexo" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <GridPane id="GridPane" fx:id="gpDwon" layoutX="14.0" layoutY="87.0">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Nascimento" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <DatePicker fx:id="dpNascimento" prefHeight="25" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfNotificacao" prefHeight="25.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="tfCID" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <TextField fx:id="tfBairro" prefHeight="25.0" prefWidth="244.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notificação" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CID" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bairro" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <TextField fx:id="tfResponsavel" layoutX="14.0" layoutY="161.0" prefHeight="25.0" prefWidth="620.0" />
+    <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Responsável" />
+  </children>
+  <stylesheets>
+    <URL value="@../css/Notify.css" />
+  </stylesheets>
+</AnchorPane>

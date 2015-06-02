@@ -1,0 +1,10 @@
+*.class
+build/
+out/
+data/
+dist/
+dist
+build
+data
+H2DB
+.idea/

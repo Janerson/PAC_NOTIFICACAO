@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="pane-back" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="274.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.AboutController">
+  <children>
+    <ImageView id="image-view" fitHeight="227.0" fitWidth="227.0" layoutX="44.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../images/medium-3235-5461922.png" />
+      </image>
+    </ImageView>
+    <AnchorPane prefHeight="42.0" prefWidth="274.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <TextArea editable="false" layoutX="5.0" layoutY="292.0" prefHeight="166.0" prefWidth="262.0" text="    Copyright (C) &lt;2015&gt;  &lt;Janerson Douglas&gt;&#10;    Design https://github.com/herudi/JavaFX-MetroUI&#10;   &#10;    Este programa é software livre; você pode redistribuí-lo e/ou&#10;    modificá-lo sob os termos da Licença Pública Geral GNU, conforme&#10;    publicada pela Free Software Foundation; tanto a versão 2 da&#10;    Licença como (a seu critério) qualquer versão mais nova.&#10;&#10;    Este programa é distribuído na expectativa de ser útil, mas SEM&#10;    QUALQUER GARANTIA; sem mesmo a garantia implícita de&#10;    COMERCIALIZAÇÃO ou de ADEQUAÇÃO A QUALQUER PROPÓSITO EM&#10;    PARTICULAR. Consulte a Licença Pública Geral GNU para obter mais&#10;    detalhes.&#10; &#10;   " />
+  </children>
+  <stylesheets>
+    <URL value="@../css/Notify.css" />
+  </stylesheets>
+</AnchorPane>

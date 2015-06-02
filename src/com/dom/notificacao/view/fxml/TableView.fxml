@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" fx:controller="com.dom.notificacao.controller.TableViewController" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TableView fx:id="tbPaciente" prefHeight="471.0" prefWidth="768.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <columns>
+        <TableColumn prefWidth="94.15625" resizable="false" sortable="false" text="Dt. Notificação" fx:id="colDataNotificacao" />
+        <TableColumn minWidth="0.0" prefWidth="232.54913330078125" resizable="false" sortable="false" text="Paciente" fx:id="colPaciente" />
+        <TableColumn minWidth="100.0" prefWidth="16.0" resizable="false" sortable="false" text="Sexo" fx:id="colSexo" />
+        <TableColumn prefWidth="113.0" resizable="false" sortable="false" text="Dt. de Nascimento" fx:id="colDataNascimento" />
+        <TableColumn minWidth="100.0" prefWidth="63.0" resizable="false" sortable="false" text="Notificação" fx:id="colNotificacao" />
+        <TableColumn minWidth="50.0" prefWidth="46.0" resizable="false" sortable="false" text="CID" fx:id="colCID" />
+        <TableColumn minWidth="150.0" prefWidth="98.0" resizable="false" sortable="false" text="Bairro" fx:id="colBairro" />
+        <TableColumn minWidth="0.0" prefWidth="350.0" sortable="false" text="Responsável" fx:id="colResposavel" />
+      </columns>
+    </TableView>
+    <TextField fx:id="ctfPesquisa" promptText="PESQUISAR PELO NOME DO PACIENTE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+  </children>
+  <stylesheets>
+    <URL value="@../css/Metro-UI.css" />
+  </stylesheets>
+</AnchorPane>
