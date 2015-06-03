@@ -20,7 +20,7 @@
     <GridPane id="GridPane" fx:id="gpTop" layoutX="14.0" layoutY="26.0">
       <children>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Hoje" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <DatePicker fx:id="dpHoje" prefHeight="25" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dpHoje"  prefHeight="25" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <TextField fx:id="tfPaciente" prefHeight="25.0" prefWidth="346.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paciente" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <ComboBox fx:id="comboSexo" prefHeight="25.0" prefWidth="150.0" promptText="Selecione o Sexo" GridPane.columnIndex="2" GridPane.rowIndex="1" />
