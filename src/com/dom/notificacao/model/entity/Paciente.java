@@ -1,6 +1,10 @@
 package com.dom.notificacao.model.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -29,6 +33,7 @@ public class Paciente {
         this.id = id;
     }
 
+    @NotEmpty(message = "Paciente: campo Obrigatório")
     @Column(name = "pac_nome" , length = 72)
     public String getNome() {
         return nome;
@@ -38,6 +43,8 @@ public class Paciente {
         this.nome = nome;
     }
 
+    @Past(message = "Data de nascimento deve ser anterior a data atual.")
+    @NotNull(message = "Data de Nascimento deve ser preenchida.")
     @Temporal(TemporalType.DATE)
     @Column(name = "pac_data_nascimento" , nullable = true)
     public Date getDataNascimento() {
