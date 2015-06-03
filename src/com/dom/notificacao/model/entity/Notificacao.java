@@ -1,6 +1,9 @@
 package com.dom.notificacao.model.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -32,6 +35,7 @@ public class Notificacao {
         this.id = id;
     }
 
+
     @Temporal(TemporalType.DATE)
     @Column(name = "not_hoje" , nullable = false)
     public Date getHoje() {
@@ -42,6 +46,7 @@ public class Notificacao {
         this.hoje = hoje;
     }
 
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     public Paciente getPaciente() {
         return paciente;
@@ -50,6 +55,7 @@ public class Notificacao {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
 
     @Column(name = "COD_CID")
     public String getCid() {
