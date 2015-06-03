@@ -60,13 +60,13 @@ public class User {
     public boolean notificar(Notificacao n , NotificacaoDAO dao){
         Set<ConstraintViolation<Object>> obj = new BeanCheckConstraints<>(n).validar();
         try{
-           ValidationHelper.validarBean(obj,n,dao ,"Notificação Incluída.");
+           return ValidationHelper.validarBean(obj,n,dao ,"Notificação Incluída.");
 
         }catch (Exception e){
             ValidationHelper.showException(e ,"Ops" ,n);
             e.printStackTrace();
         }
-        return true;
+       return false;
     }
 
     public ObservableList<Notificacao> listar(NotificacaoDAO dao){
