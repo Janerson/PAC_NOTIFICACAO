@@ -67,6 +67,9 @@ public class FormNotifController implements Initializable{
         controller = this;
         init();
         textFieldToUpperCase();
+        dpHoje.getCalendarView().disableProperty().setValue(true);
+        dpHoje.setEditable(false);
+
     }
 
     public void notificar(){
@@ -77,7 +80,9 @@ public class FormNotifController implements Initializable{
             n.setHoje(dpHoje.getSelectedDate());
             n.getPaciente().setNome(tfPaciente.getText());
             n.getPaciente().setDataNascimento(dpNascimento.getSelectedDate());
-            n.getPaciente().setSexo(comboSexo.getValue().toString());
+            if(comboSexo.getValue()!=null){
+                n.getPaciente().setSexo(comboSexo.getValue().toString());
+            }
             n.setNotification(tfNotificacao.getText());
             n.setCid(tfCID.getText());
             n.setBairro(tfBairro.getText());
@@ -87,16 +92,22 @@ public class FormNotifController implements Initializable{
             n.setHoje(dpHoje.getSelectedDate());
             n.getPaciente().setNome(tfPaciente.getText());
             n.getPaciente().setDataNascimento(dpNascimento.getSelectedDate());
-            n.getPaciente().setSexo(comboSexo.getValue().toString());
+            if(comboSexo.getValue()!=null){
+                n.getPaciente().setSexo(comboSexo.getValue().toString());
+            }
             n.setNotification(tfNotificacao.getText());
             n.setCid(tfCID.getText());
             n.setBairro(tfBairro.getText());
             n.getResponsavel().setNome(tfResponsavel.getText());
         }
 
-        user.notificar(n,dao);
-        refresh();
-        limpar();
+
+        if(user.notificar(n,dao)){
+            refresh();
+            limpar();
+        }
+
+
 
     }
 
