@@ -1,6 +1,8 @@
 package com.dom.notificacao.controller;
 
+import com.dom.notificacao.config.Config;
 import com.dom.notificacao.model.entity.Notificacao;
+import com.dom.notificacao.model.helper.FxmlHelper;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -62,14 +65,16 @@ public class TableViewController implements Initializable {
     @FXML private TextField ctfPesquisa;
     private final SimpleDateFormat FORMART_BR = new SimpleDateFormat("dd/MM/yyyy");
     private ObservableList<Notificacao> masterData = FXCollections.observableArrayList();
+    private Config c = new Config();
+    private Stage st;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         tbController = this;
         tbPaciente.setItems(masterData);
         initTableColumn();
         initFilter();
+        //st = (Stage) tbPaciente.getScene().getWindow();
 
     }
     private void initTableColumn(){
@@ -154,6 +159,11 @@ public class TableViewController implements Initializable {
     public void preencherTabela(ObservableList<Notificacao> obs){
         masterData.clear();
         masterData.addAll(obs);
+    }
+
+    @FXML
+    public void notificar(){
+        c.formNotificacao( st, FxmlHelper.loadFxml("FormNotificacao") , null);
     }
 
     public ObservableList<Notificacao> getMasterData() {

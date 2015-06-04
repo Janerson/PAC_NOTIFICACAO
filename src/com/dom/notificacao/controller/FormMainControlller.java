@@ -6,10 +6,10 @@ import com.dom.notificacao.config.UserSingleton;
 import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.User;
 import com.dom.notificacao.model.helper.FxmlHelper;
+import com.dom.notificacao.view.LoadResource;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
@@ -17,10 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -55,8 +57,9 @@ public class FormMainControlller implements Initializable {
     private DatePicker dpATE = new DatePicker();
     @FXML private AnchorPane ApSlide;
     @FXML private GridPane gridPane;
-    @FXML private ListView<String> listMenu;
+    @FXML private ListView<Label> listMenu;
     @FXML private BorderPane borderPane;
+
 
 
     private NotificacaoDAO dao;
@@ -85,9 +88,14 @@ public class FormMainControlller implements Initializable {
      * Inicializa a lista de menu.
      */
     private void initList(){
-        ObservableList<String> menuItem = FXCollections.observableArrayList();
-        menuItem.addAll("Principal","Notificar" , "Relatórios" , "Suporte","Sobre");
-        listMenu.getItems().addAll(menuItem);
+        Label home = new Label("  INICÍO" , new ImageView(LoadResource.HOME));
+        Label about = new Label("  SOBRE" , new ImageView(LoadResource.ABOUT));
+        Label chart = new Label("  SOBRE" , new ImageView(LoadResource.CHART));
+        home.setStyle("-fx-text-fill: white");
+        about.setStyle("-fx-text-fill: white");
+        chart.setStyle("-fx-text-fill: white");
+
+        listMenu.getItems().addAll(home,chart , about);
     }
     /**
      * Inicializa a tabela
@@ -114,16 +122,15 @@ public class FormMainControlller implements Initializable {
         });
 
     }
+    //TODO - Tratar evento do clique na ListView
     public void listMouseClick(MouseEvent me){
         Config c = new Config();
         switch (listMenu.getSelectionModel().getSelectedIndex()){
             case 0:
-                c.formNotificacao( st, FxmlHelper.loadFxml("FormNotificacao") , null);
+                borderPane.setCenter(Config.loadNode(FxmlHelper.loadFxml("TableView")));
+                listService();
                 break;
             case 2:
-                showFilterSlide();
-                break;
-            case 3:
                 c.formAbout(st , FxmlHelper.loadFxml("about"), new BoxBlur(3 , 3 ,3));
                 break;
         }

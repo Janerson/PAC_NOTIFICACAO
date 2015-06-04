@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" style="-fx-border-color: d1d0d0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.FormMainControlller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" style="-fx-border-color: #2c62b5;&#10;-fx-border-width:1px;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.FormMainControlller">
   <children>
     <AnchorPane id="left-side-pane" minWidth="-Infinity" prefHeight="596.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -39,15 +39,15 @@
         <URL value="@../css/winDec.css" />
       </stylesheets>
     </HBox>
-    <Text layoutX="163.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Notificação v1.0">
+    <Text layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Notificação v1.0" AnchorPane.rightAnchor="151.38">
       <fill>
         <Color blue="0.365" green="0.365" red="0.369" fx:id="x2" />
       </fill>
       <font>
-        <Font size="18.0" fx:id="x1" />
+        <Font size="12.0" />
       </font>
     </Text>
-    <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="795.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0" />
+    <BorderPane fx:id="borderPane" prefHeight="558.0" prefWidth="791.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="41.0" />
     <AnchorPane fx:id="ApSlide" layoutY="161.0" prefHeight="288.0" prefWidth="218.0" style="-fx-background-color: f5f3f3; -fx-border-color: d1d0d0; -fx-border-width: 2;" AnchorPane.leftAnchor="-230.0">
       <children>
         <BorderPane prefHeight="207.0" prefWidth="206.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="75.0">
@@ -89,7 +89,11 @@
     </AnchorPane>
     <Region fx:id="veil" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(0, 0, 0, 0.4);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     <ProgressBar fx:id="progressBar" layoutX="297.0" layoutY="293.0" prefHeight="14.0" prefWidth="389.0" progress="0.0" visible="true" />
-    <Text fx:id="txtStatus" fill="WHITE" font="$x1" layoutX="438.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atualizando..." visible="false" />
+    <Text fx:id="txtStatus" fill="WHITE" layoutX="438.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atualizando..." visible="false">
+      <font>
+        <Font size="18.0" fx:id="x1" />
+      </font>
+    </Text>
   </children>
   <stylesheets>
     <URL value="@../css/Metro-UI.css" />

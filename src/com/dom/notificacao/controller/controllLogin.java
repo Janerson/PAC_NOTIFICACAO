@@ -23,7 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -80,6 +80,15 @@ public class controllLogin implements Initializable {
                         System.exit(0);
                     }
                 });
+            }
+        });
+        txtPassword.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                final KeyCombination ENTER = new KeyCodeCombination(KeyCode.ENTER);
+                if (ENTER.match(keyEvent)) {
+                    aksiLogin(null);
+                }
             }
         });
 

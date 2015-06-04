@@ -20,6 +20,9 @@ public class LoadResource {
     public static final Image INFORMATION         = new Image(PATH_RESOURCE + "information.png");
     public static final Image ERRO                = new Image(PATH_RESOURCE + "warning.png");
     public static final Image OK_SAVE             = new Image(PATH_RESOURCE + "ok-save.png");
+    public static final Image HOME                = new Image(PATH_RESOURCE + "home.png");
+    public static final Image ABOUT               = new Image(PATH_RESOURCE + "about.png");
+    public static final Image CHART               = new Image(PATH_RESOURCE + "chart.png");
    
     
 }
