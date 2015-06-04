@@ -5,10 +5,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" fx:controller="com.dom.notificacao.controller.TableViewController" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.TableViewController">
   <children>
     <TableView fx:id="tbPaciente" prefHeight="471.0" prefWidth="768.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columns>
+        <TableColumn prefWidth="105.0" sortable="false" text="Acão" fx:id="tbAction" />
         <TableColumn prefWidth="94.15625" resizable="false" sortable="false" text="Dt. Notificação" fx:id="colDataNotificacao" />
         <TableColumn minWidth="0.0" prefWidth="232.54913330078125" resizable="false" sortable="false" text="Paciente" fx:id="colPaciente" />
         <TableColumn minWidth="100.0" prefWidth="16.0" resizable="false" sortable="false" text="Sexo" fx:id="colSexo" />

@@ -9,6 +9,8 @@ import com.dom.notificacao.model.helper.ValidationHelper;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -105,11 +107,23 @@ public class FormNotifController implements Initializable{
         if(user.notificar(n,dao)){
             refresh();
             limpar();
+        }else{
+            validateField();
         }
 
-
-
     }
+    private void validateField(){
+        if(tfPaciente.getText().isEmpty() || tfPaciente.getText() == null){
+            tfPaciente.setStyle("-fx-border-color: #ff000c");
+        }
+        if( dpNascimento.getSelectedDate() == null){
+            dpNascimento.textfieldSetStyle("-fx-border-color: #ff000c");
+        }else if(dpNascimento.getSelectedDate().after(new Date())){
+            dpNascimento.textfieldSetStyle("-fx-border-color: #ff000c");
+        }
+    }
+
+
 
     private void refresh(){
         NotificacaoDAO dao = new NotificacaoDAO();
@@ -154,6 +168,23 @@ public class FormNotifController implements Initializable{
         user = UserSingleton.getInstance().getUser();
         Date hoje = new Date();
         dpHoje.setSelectedDate(hoje);
+        tfPaciente.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(!s.isEmpty()){
+                    System.out.println("Entrei...");
+                    tfPaciente.setStyle("-fx-border-color: null");
+                }
+            }
+        });
+        dpNascimento.getTextField().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(s.length() > 0|| t1.length() > 0){
+                    dpNascimento.textfieldSetStyle("-fx-border-color: null");
+                }
+            }
+        });
 
     }
     public void changeNotificacao(Notificacao n){
