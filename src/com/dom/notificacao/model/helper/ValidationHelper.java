@@ -24,7 +24,6 @@ public abstract class ValidationHelper {
     private static String erro = "";
 
 
-    //TODO - Resolver método para validar bean
     public static boolean validarBean(Set<ConstraintViolation<Object>> violations, Object entity, DAOImpl dao) throws InstantiationException {
         if (violations.isEmpty()) {
             validarSalvar(dao.save(entity), entity);
@@ -81,7 +80,6 @@ public abstract class ValidationHelper {
     }
 
     public static void showException(Exception e ,String msg , Object header){
-        Dialogs.showErrorDialog(null, "Ooops, there was an error!", "Error Dialog", "title");
         Dialogs.showErrorDialog(null ,msg ,header.toString() , header.toString() , e);
     }
 
