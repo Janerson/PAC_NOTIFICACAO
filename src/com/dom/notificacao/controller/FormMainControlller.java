@@ -7,8 +7,6 @@ import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.User;
 import com.dom.notificacao.model.helper.FxmlHelper;
 import com.dom.notificacao.view.LoadResource;
-import eu.schudt.javafx.controls.calendar.DatePicker;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
@@ -24,17 +22,13 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 
@@ -43,30 +37,21 @@ import java.util.ResourceBundle;
  * Email: douglas.janerson@gmail.com
  * Project: PAC_NOTIFICACAO.
  */
-public class FormMainControlller implements Initializable {
+public class FormMainControlller extends AboutController implements Initializable {
 
     public static FormMainControlller frmController;
-
     private Stage st;
     private boolean maximized;
     private BoundingBox savedBounds;
+
     @FXML private Region veil;
     @FXML private ProgressBar progressBar;
     @FXML private Text txtStatus;
-    private DatePicker dpDE = new DatePicker();
-    private DatePicker dpATE = new DatePicker();
-    @FXML private AnchorPane ApSlide;
-    @FXML private GridPane gridPane;
     @FXML private ListView<Label> listMenu;
     @FXML private BorderPane borderPane;
 
-
-
     private NotificacaoDAO dao;
     private User user;
-    private boolean isMenu = false;
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,7 +75,7 @@ public class FormMainControlller implements Initializable {
     private void initList(){
         Label home = new Label("  INICÍO" , new ImageView(LoadResource.HOME));
         Label about = new Label("  SOBRE" , new ImageView(LoadResource.ABOUT));
-        Label chart = new Label("  SOBRE" , new ImageView(LoadResource.CHART));
+        Label chart = new Label("  GRÁFICOS" , new ImageView(LoadResource.CHART));
         home.setStyle("-fx-text-fill: white");
         about.setStyle("-fx-text-fill: white");
         chart.setStyle("-fx-text-fill: white");
@@ -102,21 +87,21 @@ public class FormMainControlller implements Initializable {
      */
     private void initTable(){
         borderPane.setCenter(Config.loadNode(FxmlHelper.loadFxml("TableView")));
-        gridPane.add(dpDE,0,1);
-        gridPane.add(dpATE,0,3);
+
     }
 
-    private void listService(){
+    public void listService(){
         final TableService service = new TableService(user , new NotificacaoDAO());
         progressBar.progressProperty().bind(service.progressProperty());
         progressBar.visibleProperty().bind(service.runningProperty());
         txtStatus.visibleProperty().bind(service.runningProperty());
         veil.visibleProperty().bind(service.runningProperty());
-     //   TableViewController.tbController.getTbPaciente().itemsProperty().bind(service.valueProperty());
+
         service.start();
         service.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent workerStateEvent) {
+                TableViewController.tbController.getMasterData().clear();
                 TableViewController.tbController.getMasterData().addAll(service.getValue());
             }
         });
@@ -135,26 +120,7 @@ public class FormMainControlller implements Initializable {
                 break;
         }
     }
-    public void showFilterSlide(){
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), ApSlide);
-        tt.setAutoReverse(true);
-        if(isMenu == false){
-            tt.setFromX(0);
-            tt.setToX(230);
-            tt.play();
-            isMenu = true;
-        }else{
-            tt.setFromX(230);
-            tt.setToX(0);
-            tt.play();
-            isMenu = false;
-        }
 
-//        tt.play();
-    }
-    private void filterTable(Date from , Date to){
-
-    }
 
     public void minimize() {
         st.setIconified(true);
