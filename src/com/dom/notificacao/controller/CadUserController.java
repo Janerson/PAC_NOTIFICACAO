@@ -95,7 +95,7 @@ public class CadUserController implements Initializable {
             }
         } catch (InstantiationException e) {
             e.printStackTrace();
-            //TODO - mostrar exception
+            ValidationHelper.showException(e , "Ops, há algo de errado aqui.",user);
 
         }
 
