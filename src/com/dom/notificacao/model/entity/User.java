@@ -70,10 +70,9 @@ public class User {
     }
 
     public ObservableList<Notificacao> listar(NotificacaoDAO dao){
-        ObservableList<Notificacao> notificacaos =
-                FXCollections.observableArrayList(dao.getAll());
-        return notificacaos;
+        return FXCollections.observableArrayList(dao.getAll());
     }
+
     public boolean deletar(NotificacaoDAO dao, Notificacao n){
         try {
             if(dao.remove(n)){
