@@ -115,6 +115,9 @@ public class FormMainControlller extends AboutController implements Initializabl
                 borderPane.setCenter(Config.loadNode(FxmlHelper.loadFxml("TableView")));
                 listService();
                 break;
+            case 1:
+                borderPane.setCenter(Config.loadNode(FxmlHelper.loadFxml("Chart")));
+                break;
             case 2:
                 c.formAbout(st , FxmlHelper.loadFxml("about"), new BoxBlur(3 , 3 ,3));
                 break;

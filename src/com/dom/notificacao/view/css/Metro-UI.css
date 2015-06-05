@@ -7,15 +7,95 @@ and open the template in the editor.
     Created on : Apr 9, 2015, 6:21:30 PM
     Author     : Herudi
 */
-
 #btn-filter{
     -fx-background-color: #1d8db5;
     -fx-background-radius: 0;
+    -fx-text-fill: white;
 }
 #btn-filter:hover{
     -fx-background-color: #2c62b5;
     -fx-background-radius: 0;
 }
+
+#pane-chart{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2c62b5;
+    -fx-border-width: 30 1 1 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 0 );
+}
+
+#btn-pier-chart{
+    -fx-graphic:url('../images/Pie%20Chart-64%20(1).png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+#btn-pier-chart:hover{
+    -fx-graphic:url('../images/Pie%20Chart-64-hover.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+#btn-bar-chart{
+    -fx-graphic:url('../images/Bar%20Chart-64.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+#btn-bar-chart:hover{
+    -fx-graphic:url('../images/Bar%20Chart-64%20-hover.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+#btn-line-chart {
+    -fx-graphic: url('../images/Line%20Chart-64%20.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+
+#btn-line-chart:hover{
+    -fx-graphic: url('../images/Line%20Chart-64-hover.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+
+}
+#btn-area-chart {
+    -fx-graphic: url('../images/Area%20Chart-64.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+
+#btn-area-chart:hover{
+    -fx-graphic: url('../images/Area%20Chart-64-hover.png');
+    -fx-background-color: transparent;
+    -fx-text-fill: #13418b;
+}
+
+
+
+#top-pane{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2c62b5;
+    -fx-border-width: 0 0 5 0;
+}
+#top-botton{
+    -fx-background-color: #212121;
+    -fx-border-color: #2c62b5;
+    -fx-border-width: 5 0 0 0;
+}
+
+#pane-fundo{
+    -fx-background-color: #e8ebf0;
+}
+#form-pane{
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 0 );
+}
+#form-chart{
+    -fx-border-color: #2c62b5;
+    -fx-border-width: 40 1 1 1;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 0 );
+}
+
+
 
 #anchor-pane{
     -fx-border-color: #2c62b5;

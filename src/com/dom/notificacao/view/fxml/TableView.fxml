@@ -9,22 +9,18 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.TableViewController">
   <children>
-    <AnchorPane prefHeight="47.0" prefWidth="768.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane prefHeight="67.94000244140625" prefWidth="768.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Text fill="#003d99" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabela Notificação" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="7.0">
-          <font>
-            <Font size="25.0" />
-          </font>
-        </Text>
         <Button id="btn-filter" layoutY="7.0" mnemonicParsing="false" onAction="#notificar" prefHeight="34.0" prefWidth="111.0" text="NOTIFICAR" textFill="WHITE" AnchorPane.rightAnchor="130.0">
           <font>
             <Font name="System Bold" size="15.0" fx:id="x1" />
           </font>
         </Button>
         <Button id="btn-filter" font="$x1" layoutY="7.0" mnemonicParsing="false" onAction="#showFilterSlide" prefHeight="34.0" prefWidth="103.0" text="FILTRAR" textFill="WHITE" AnchorPane.rightAnchor="14.0" />
+        <Text fill="#00a3ff" layoutY="37.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="Notificação" AnchorPane.leftAnchor="101.0" />
       </children>
     </AnchorPane>
-    <TableView fx:id="tbPaciente" prefHeight="480.0" prefWidth="768.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+    <TableView fx:id="tbPaciente" prefHeight="459.056640625" prefWidth="768.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.94">
       <columns>
         <TableColumn prefWidth="105.0" sortable="false" text="Acão" fx:id="tbAction" />
         <TableColumn prefWidth="94.15625" resizable="false" sortable="false" text="Dt. Notificação" fx:id="colDataNotificacao" />

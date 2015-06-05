@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="600.0" prefWidth="950.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.dom.notificacao.controller.ChartController">
+  <children>
+    <BorderPane fx:id="borderPaner" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <TabPane fx:id="tabChart" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Notificações por Sexo">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <BorderPane fx:id="bdSexo" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab 2">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </center>
+      <top>
+        <AnchorPane prefHeight="78.0" prefWidth="704.0">
+          <children>
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="243.0" spacing="4.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="14.0">
+              <children>
+                <Button id="btn-filter" mnemonicParsing="false" text="Button" />
+                <Button id="btn-filter" mnemonicParsing="false" text="Button" />
+                <Button id="btn-filter" mnemonicParsing="false" onAction="#saveAsImage" text="Exportar" />
+                <Button id="btn-filter" mnemonicParsing="false" onAction="#showTypeOfChart" text="Charts" />
+              </children>
+            </HBox>
+            <Text fill="#00a3ff" layoutX="72.0" layoutY="44.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="Gráficos" />
+          </children>
+        </AnchorPane>
+      </top>
+    </BorderPane>
+    <AnchorPane id="pane-chart" fx:id="chartPane" layoutY="78.0" prefHeight="405.0" prefWidth="200.0" AnchorPane.rightAnchor="-209.0">
+      <children>
+        <VBox alignment="CENTER" prefHeight="390.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <Button id="btn-pier-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#pierChart" text="Pie Chart" />
+            <Button id="btn-bar-chart" contentDisplay="TOP" mnemonicParsing="false" text="Bar Chart" />
+            <Button id="btn-line-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#lineChart" text="Line Chart" />
+            <Button id="btn-area-chart" contentDisplay="TOP" mnemonicParsing="false" text="Area Chart" />
+          </children>
+        </VBox>
+      </children>
+    </AnchorPane>
+  </children>
+  <stylesheets>
+    <URL value="@../css/Metro-UI.css" />
+  </stylesheets>
+</AnchorPane>
