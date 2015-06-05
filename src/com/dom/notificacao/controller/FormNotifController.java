@@ -55,30 +55,22 @@ public class FormNotifController implements Initializable{
     @FXML
     private ComboBox comboSexo;
 
-
     private User user;
     private  ObjectProperty<Notificacao> notificacaoSimpleObjectProperty = new SimpleObjectProperty<>();
 
-
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         controller = this;
         init();
         textFieldToUpperCase();
         dpHoje.getCalendarView().disableProperty().setValue(true);
         dpHoje.setEditable(false);
-
     }
 
     public void notificar(){
         NotificacaoDAO dao = new NotificacaoDAO();
         Notificacao n = notificacaoSimpleObjectProperty.get();
         if(n!=null){
-
             n.setHoje(dpHoje.getSelectedDate());
             n.getPaciente().setNome(tfPaciente.getText());
             n.getPaciente().setDataNascimento(dpNascimento.getSelectedDate());
@@ -103,14 +95,13 @@ public class FormNotifController implements Initializable{
             n.getResponsavel().setNome(tfResponsavel.getText());
         }
 
-
         if(user.notificar(n,dao)){
             refresh();
             limpar();
         }else{
             validateField();
         }
-
+        notificacaoSimpleObjectProperty.setValue(null);
     }
     private void validateField(){
         if(tfPaciente.getText().isEmpty() || tfPaciente.getText() == null){
@@ -123,19 +114,15 @@ public class FormNotifController implements Initializable{
         }
     }
 
-
-
     private void refresh(){
         NotificacaoDAO dao = new NotificacaoDAO();
         TableViewController.tbController.preencherTabela(user.listar(dao));
     }
-
     public void cancelar(){
         Stage s = (Stage) tfBairro.getScene().getWindow();
         s.close();
         FormMainControlller.frmController.stageEffect(null);
     }
-
     public void limpar(){
         Date d = new Date();
         dpHoje.setSelectedDate(d);
@@ -153,7 +140,6 @@ public class FormNotifController implements Initializable{
         refresh();
 
     }
-
     public void textFieldToUpperCase(){
         ValidationHelper.TextFieldToUpperCase(tfPaciente);
         ValidationHelper.TextFieldToUpperCase(tfNotificacao);
@@ -161,7 +147,6 @@ public class FormNotifController implements Initializable{
         ValidationHelper.TextFieldToUpperCase(tfBairro);
         ValidationHelper.TextFieldToUpperCase(tfResponsavel);
     }
-
     void init(){
 
         comboSexo.getItems().addAll(Arrays.asList(Sexo.values()));
@@ -172,7 +157,6 @@ public class FormNotifController implements Initializable{
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if(!s.isEmpty()){
-                    System.out.println("Entrei...");
                     tfPaciente.setStyle("-fx-border-color: null");
                 }
             }
@@ -186,9 +170,24 @@ public class FormNotifController implements Initializable{
             }
         });
 
+        notificacaoSimpleObjectProperty.addListener(new ChangeListener<Notificacao>() {
+            @Override
+            public void changed(ObservableValue<? extends Notificacao> observableValue, Notificacao notificacao, Notificacao t1) {
+                if(t1 != null){
+                    dpHoje.setSelectedDate(t1.getHoje());
+                    tfPaciente.setText(t1.getPaciente().getNome());
+                    comboSexo.setValue(t1.getPaciente().getSexo());
+                    dpNascimento.setSelectedDate(t1.getPaciente().getDataNascimento());
+                    tfCID.setText(t1.getCid());
+                    tfBairro.setText(t1.getBairro());
+                    tfNotificacao.setText(t1.getNotification());
+                    tfResponsavel.setText(t1.getResponsavel().getNome());
+                }
+            }
+        });
+
     }
     public void changeNotificacao(Notificacao n){
-        System.out.println("Value alterado");
         notificacaoSimpleObjectProperty.setValue(n);
     }
 
