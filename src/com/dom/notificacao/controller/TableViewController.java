@@ -1,8 +1,13 @@
 package com.dom.notificacao.controller;
 
 import com.dom.notificacao.config.Config;
+import com.dom.notificacao.config.UserSingleton;
+import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.Notificacao;
 import com.dom.notificacao.model.helper.FxmlHelper;
+import com.dom.notificacao.model.helper.ValidationHelper;
+import eu.schudt.javafx.controls.calendar.DatePicker;
+import javafx.animation.TranslateTransition;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,9 +21,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -63,6 +73,13 @@ public class TableViewController implements Initializable {
     private TableColumn<Notificacao, String> colResposavel;
 
     @FXML private TextField ctfPesquisa;
+
+    private DatePicker dpDE = new DatePicker();
+    private DatePicker dpATE = new DatePicker();
+    private boolean isMenu = false;
+    @FXML private AnchorPane apSlide;
+    @FXML private GridPane gridPane;
+
     private final SimpleDateFormat FORMART_BR = new SimpleDateFormat("dd/MM/yyyy");
     private ObservableList<Notificacao> masterData = FXCollections.observableArrayList();
     private Config c = new Config();
@@ -74,8 +91,44 @@ public class TableViewController implements Initializable {
         tbPaciente.setItems(masterData);
         initTableColumn();
         initFilter();
-        //st = (Stage) tbPaciente.getScene().getWindow();
+        gridPane.add(dpDE,0,1);
+        gridPane.add(dpATE,0,3);
+    }
+    @FXML
+    public void showFilterSlide(){
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.5), apSlide);
+        tt.setAutoReverse(true);
+        if(isMenu == false){
+            tt.setFromX(0);
+            tt.setToX(-230);
+            tt.play();
+            isMenu = true;
+        }else{
+            tt.setFromX(-230);
+            tt.setToX(0);
+            tt.play();
+            isMenu = false;
+        }
 
+    }
+    @FXML
+    public void filterBetweenDate(){
+        ObservableList<Notificacao> list = FXCollections.observableArrayList();
+        LocalDate in = LocalDate.fromDateFields(dpDE.getSelectedDate());
+        LocalDate out = LocalDate.fromDateFields(dpATE.getSelectedDate());
+        int days = Days.daysBetween(in , out).getDays();
+        for(int i =0; i<days; i++){
+            for(int j = 0; j< masterData.size(); j++){
+                Notificacao n = masterData.get(j);
+                if(n.getHoje().compareTo(in.toDate())== 1) {
+                    System.out.println("Date: "+n.getHoje());
+                    list.add(n);
+                }
+            }
+            in.plusDays(i);
+        }
+        tbPaciente.getItems().clear();
+        tbPaciente.setItems(list);
     }
     private void initTableColumn(){
         tbAction.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Object , Boolean>, ObservableValue<Boolean>>() {
@@ -132,6 +185,7 @@ public class TableViewController implements Initializable {
         });
     }
     private void initFilter(){
+        ValidationHelper.TextFieldToUpperCase(ctfPesquisa);
         ctfPesquisa.textProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -142,6 +196,7 @@ public class TableViewController implements Initializable {
 
                 ObservableList<Notificacao> tableItem = FXCollections.observableArrayList();
                 ObservableList<TableColumn<Notificacao, ?>>cols = tbPaciente.getColumns();
+
                 for(int i=0; i<masterData.size(); i++){
                     for(int j=0; j<cols.size(); j++){
                         TableColumn col = cols.get(j);
@@ -157,8 +212,14 @@ public class TableViewController implements Initializable {
         });
     }
     public void preencherTabela(ObservableList<Notificacao> obs){
-        masterData.clear();
-        masterData.addAll(obs);
+        masterData.removeAll();
+        //masterData.addAll(obs);
+        //masterData.clear();
+        masterData.setAll(obs);
+        tbPaciente.getColumns().get(0).setVisible(false);
+        tbPaciente.getColumns().get(0).setVisible(true);
+
+
     }
 
     @FXML
@@ -181,15 +242,34 @@ public class TableViewController implements Initializable {
             hb.getChildren().addAll(cellButtonDelete , cellButtonEdit);
             hb.setSpacing(4);
 
-            //TODO - Tratar Action
             cellButtonDelete.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     int row = getTableRow().getIndex();
                     tblView.getSelectionModel().select(row);
                     Notificacao n = tblView.getSelectionModel().getSelectedItem();
+                    //Dialogs.DialogResponse response = Dialogs.showConfirmDialog(null , "Deseja realmente excluir este item?","Excluir" , Dialogs.DialogOptions.YES_NO);
+                    Dialogs.DialogResponse response = Dialogs.showConfirmDialog(null, "Deseja realmente excluir este item?",
+                            "Confirmar Exclusão", "Excluir", Dialogs.DialogOptions.OK_CANCEL);
 
-                    System.out.println("Nome: "+n.getPaciente().getNome());
+                    System.out.println("Resposta: "+response.name()+" "+response);
+
+                    if(response == Dialogs.DialogResponse.OK){
+                        UserSingleton.getInstance().getUser().deletar(new NotificacaoDAO() , n);
+                        tblView.getItems().remove(n);
+                    }
+
+                }
+            });
+
+            cellButtonEdit.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    int row = getTableRow().getIndex();
+                    tblView.getSelectionModel().select(row);
+                    Notificacao n = tblView.getSelectionModel().getSelectedItem();
+                    notificar();
+                    FormNotifController.controller.changeNotificacao(n);
 
                 }
             });
