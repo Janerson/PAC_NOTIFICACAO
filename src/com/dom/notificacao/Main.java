@@ -21,7 +21,8 @@ public class Main extends Application {
         Region root = FXMLLoader.load(FxmlHelper.loadFxml("splash"));
         //Java 8
        // UndecoratorScene scene = new UndecoratorScene(primaryStage , root);
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
     }

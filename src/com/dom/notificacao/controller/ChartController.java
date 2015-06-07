@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -16,15 +17,21 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.*;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -40,10 +47,20 @@ public class ChartController implements Initializable {
     private AnchorPane chartPane;
     @FXML
     private TabPane tabChart;
+    @FXML
+    private Text chartValue;
+
+
+    DateAxis dateAxis = new DateAxis();
+    DateAxis dateAxisArea = new DateAxis();
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd\nMMM\nyy");
+    private StringConverter<Date> dateStringConverter;
+
 
     private static BarChart barChart = new BarChart(new CategoryAxis() , new NumberAxis());
-    private static LineChart lineChart = new LineChart<>(new DateAxis(), new NumberAxis());
+    private  LineChart lineChart = new LineChart<>(dateAxis, new NumberAxis());
     private static PieChart pieChart = new PieChart();
+    private  AreaChart areaChart = new AreaChart(dateAxisArea , new NumberAxis());
     private  ObservableList<Notificacao> listaNotificacao = FXCollections.observableArrayList();
 
     private SimpleBooleanProperty isOpen = new SimpleBooleanProperty(false);
@@ -52,6 +69,26 @@ public class ChartController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listaNotificacao = TableViewController.tbController.getMasterData();
+
+        dateStringConverter = new StringConverter<Date>() {
+            @Override
+            public String toString(Date date) {
+                return sdf.format(date);
+            }
+
+            @Override
+            public Date fromString(String s) {
+                Date d = null;
+                try {
+                   d = sdf.parse(s);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return d;
+            }
+        };
+        dateAxis.setTickLabelFormatter(dateStringConverter);
+        dateAxisArea.setTickLabelFormatter(dateStringConverter);
     }
 
     @FXML
@@ -61,21 +98,40 @@ public class ChartController implements Initializable {
             case 0:
                 setPierChart(pieChart,bdSexo,GraficoUtil.notificacaoSexo(listaNotificacao),"Notificação por Sexo");
                 break;
-
         }
-
         showTypeOfChart();
     }
+
     @FXML
     public void lineChart(){
         int index = tabChart.getSelectionModel().getSelectedIndex();
         switch (index){
             case 0:
-                setLineChart(lineChart, bdSexo,  "Notificação por Sexo" ,GraficoUtil.getXYSeries(listaNotificacao));
+                setLineChart(lineChart, bdSexo, "Notificação por Sexo", GraficoUtil.getXYSeries(listaNotificacao));
                 break;
-
         }
+        showTypeOfChart();
+    }
 
+    @FXML
+    public void barChart(){
+        int index = tabChart.getSelectionModel().getSelectedIndex();
+        switch (index){
+            case 0:
+                setBarChart(barChart, bdSexo, "Notificação por Sexo", GraficoUtil.getXYSeriesBarChart(listaNotificacao));
+                break;
+        }
+        showTypeOfChart();
+    }
+
+    @FXML
+    public void areaChart(){
+       int index = tabChart.getSelectionModel().getSelectedIndex();
+        switch (index){
+            case 0:
+                setAreaChart(areaChart, bdSexo, "Notificação por Sexo", GraficoUtil.getXYSeries(listaNotificacao));
+                break;
+        }
         showTypeOfChart();
     }
 
@@ -126,13 +182,15 @@ public class ChartController implements Initializable {
         try {
             if(!GraficoUtil.pierChartIsEmpty(data)){
                 p.setClockwise(true);
-                p.setStartAngle(45);
+                //p.setStartAngle(25);
                 p.setTitle(chartTitle);
                 changeChart(p , bd);
                 p.setData(data);
                 showTypeOfChart();
+                setCaption(p);
+               /* GraficoUtil.showPieValue(p);
                 GraficoUtil.pierChartCSS(p);
-                GraficoUtil.pierChartCSSLegendItem(p);
+                GraficoUtil.pierChartCSSLegendItem(p);*/
                 showTypeOfChart();
             }else{
                 ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");
@@ -157,4 +215,47 @@ public class ChartController implements Initializable {
        e.printStackTrace();
         }
     }
+    void setBarChart(BarChart l , BorderPane p , String title , ObservableList<XYChart.Series>serie){
+        l.getData().clear();
+        try {
+
+            l.setTitle(title);
+            changeChart(l , p);
+            showTypeOfChart();
+            l.getData().addAll(serie);
+            GraficoUtil.barChartCSS(l);
+            showTypeOfChart();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    void setAreaChart(AreaChart l , BorderPane p , String title , ObservableList<XYChart.Series>serie){
+        l.getData().clear();
+        try {
+            l.setTitle(title);
+            changeChart(l , p);
+            showTypeOfChart();
+            l.getData().addAll(serie);
+
+            showTypeOfChart();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    void setCaption(final PieChart chart){
+        for (final PieChart.Data data : chart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    new EventHandler<MouseEvent>() {
+                        @Override public void handle(MouseEvent e) {
+                            chartValue.setTranslateX(data.getNode().getScene().getX());
+                            chartValue.setTranslateY(data.getNode().getScene().getY());
+                            chartValue.setText(String.valueOf(data.getPieValue()));
+                            chartValue.setVisible(true);
+                        }
+                    });
+        }
+    }
+
 }

@@ -46,5 +46,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="joda-time-2.8" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ScenicView.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

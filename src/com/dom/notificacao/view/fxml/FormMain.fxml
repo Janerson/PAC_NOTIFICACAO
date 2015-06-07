@@ -49,8 +49,8 @@
     </Text>
     <BorderPane fx:id="borderPane" prefHeight="558.0" prefWidth="791.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="41.0" />
     <Region fx:id="veil" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(0, 0, 0, 0.4);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <ProgressBar fx:id="progressBar" layoutX="297.0" layoutY="293.0" prefHeight="14.0" prefWidth="389.0" progress="0.0" visible="true" />
-    <Text fx:id="txtStatus" fill="WHITE" layoutX="438.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atualizando..." visible="false">
+    <ProgressBar fx:id="progressBar" layoutY="293.0" prefHeight="14.0" prefWidth="389.0" progress="0.0" visible="true" AnchorPane.rightAnchor="264.0" />
+    <Text fx:id="txtStatus" fill="WHITE" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atualizando..." visible="false" AnchorPane.rightAnchor="405.89">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>

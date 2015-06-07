@@ -9,12 +9,18 @@ import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by DOM on 19/01/2015.
@@ -50,11 +56,71 @@ public class GraficoUtil {
         data.add(new PieChart.Data("FEMININO",f));
         return data;
     }
-    //TODO - Tratar filtro Sexo por data
- /*   public static ObservableList getXYSeries(List<Notificacao> listNotas){
 
+  public static ObservableList getXYSeries(List<Notificacao> notif){
+      ObservableList<XYChart.Series> series = FXCollections.observableArrayList();
+      Set<Date> distinctSet = new HashSet<>();
+      XYChart.Series<Date , Number> masc = new XYChart.Series();
+      masc.setName("MASCULINO");
+      XYChart.Series<Date , Number> fem = new XYChart.Series();
+      fem.setName("FEMININO");
 
-    }*/
+      //Pegando as Datas das notificações
+      for (Notificacao n : notif){
+          distinctSet.add(n.getHoje());
+      }
+
+      //Iterando sobre as datas
+      for(Date d : distinctSet){
+          int contM=0 , contF=0;
+          for (Notificacao n : notif){
+              //comparando a data da iteração com a data de noficação
+            if(n.getHoje().compareTo(d)==0){
+                //separando as notificações por sexo
+                if(n.getPaciente().getSexo().equalsIgnoreCase("MASCULINO")){
+                    contM++;
+                }else contF++;
+            }
+          }
+          masc.getData().add(new XYChart.Data<Date, Number>(d,contM));
+          fem.getData().add(new XYChart.Data<Date, Number>(d,contF));
+      }
+      series.addAll(masc,fem);
+        return series;
+    }
+    public static ObservableList getXYSeriesBarChart(List<Notificacao> notif){
+     final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        ObservableList<XYChart.Series> series = FXCollections.observableArrayList();
+
+        Set<Date> distinctSet = new HashSet<>();
+        XYChart.Series<String , Number> masc = new XYChart.Series();
+        masc.setName("MASCULINO");
+        XYChart.Series<String , Number> fem = new XYChart.Series();
+        fem.setName("FEMININO");
+
+        //Pegando as Datas das notificações
+        for (Notificacao n : notif){
+            distinctSet.add(n.getHoje());
+        }
+
+        //Iterando sobre as datas
+        for(Date d : distinctSet){
+            int contM=0 , contF=0;
+            for (Notificacao n : notif){
+                //comparando a data da iteração com a data de noficação
+                if(n.getHoje().compareTo(d)==0){
+                    //separando as notificações por sexo
+                    if(n.getPaciente().getSexo().equalsIgnoreCase("MASCULINO")){
+                        contM++;
+                    }else contF++;
+                }
+            }
+            masc.getData().add(new XYChart.Data<String, Number>(sdf.format(d),contM));
+            fem.getData().add(new XYChart.Data<String, Number>(sdf.format(d),contF));
+        }
+        series.addAll(masc,fem);
+        return series;
+    }
 
     /**
      * Calcula a % de uma <b>fração</> do valor <b>total</b>.
@@ -67,18 +133,6 @@ public class GraficoUtil {
         return Double.parseDouble(str.replace(",","."));
     }
 
-    /**
-     * Tab Faltas
-     * @param listNotas
-     * @return ObservableList<PieChart.Data>
-     */
-    public static ObservableList populatePierchartFaltas( List<Notificacao> listNotas){
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-        /*listNotas.forEach(n ->{
-            data.add(new PieChart.Data(n.getDisciplinas().getDisciplina(), n.getTotalFaltas()));
-        });*/
-        return data;
-    }
 
     /*BarChart CSS*/
     public static void barChartCSS(BarChart barChart){
@@ -125,6 +179,16 @@ public class GraficoUtil {
             data.getNode().getStyleClass().add("default-color" + (i));
             i++;
         }
+    }
+    public static void showPieValue(PieChart chart){
+       for (Node node : chart.lookupAll(".chart-legend-item")){
+           if(node instanceof Text){
+               for (PieChart.Data data : chart.getData()){
+                   if (data.getName().equals(((Text) node).getText()));
+                   ((Text) node).setText(String.format("%,.0f", data.getPieValue()));
+               }
+           }
+       }
     }
     public static void pierChartCSSLegendItem(PieChart pieChart){
         int i = 0;

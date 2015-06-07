@@ -23,26 +23,30 @@
                 </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab 2">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
           </tabs>
         </TabPane>
       </center>
       <top>
         <AnchorPane prefHeight="78.0" prefWidth="704.0">
           <children>
-            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="243.0" spacing="4.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="14.0">
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="260.0" spacing="4.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="14.0">
               <children>
-                <Button id="btn-filter" mnemonicParsing="false" text="Button" />
-                <Button id="btn-filter" mnemonicParsing="false" text="Button" />
-                <Button id="btn-filter" mnemonicParsing="false" onAction="#saveAsImage" text="Exportar" />
-                <Button id="btn-filter" mnemonicParsing="false" onAction="#showTypeOfChart" text="Charts" />
+                <Button id="btn-filter" mnemonicParsing="false" text="Button">
+                  <font>
+                    <Font name="System Bold" size="12.0" fx:id="x1" />
+                  </font>
+                </Button>
+                <Button id="btn-filter" font="$x1" mnemonicParsing="false" text="Button" />
+                <Button id="btn-filter" font="$x1" mnemonicParsing="false" onAction="#saveAsImage" text="Exportar" />
+                <Button id="btn-filter" font="$x1" mnemonicParsing="false" onAction="#showTypeOfChart" text="Charts" />
               </children>
             </HBox>
-            <Text fill="#00a3ff" layoutX="72.0" layoutY="44.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="Gráficos" />
+            <Text layoutX="72.0" layoutY="44.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="Gráficos">
+              <fill>
+                <Color blue="1.000" green="0.639" red="0.000" fx:id="x2" />
+              </fill>
+            </Text>
+            <Text fx:id="chartValue" fill="$x2" layoutX="272.0" layoutY="44.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
           </children>
         </AnchorPane>
       </top>
@@ -52,9 +56,9 @@
         <VBox alignment="CENTER" prefHeight="390.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
             <Button id="btn-pier-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#pierChart" text="Pie Chart" />
-            <Button id="btn-bar-chart" contentDisplay="TOP" mnemonicParsing="false" text="Bar Chart" />
+            <Button id="btn-bar-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#barChart" text="Bar Chart" />
             <Button id="btn-line-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#lineChart" text="Line Chart" />
-            <Button id="btn-area-chart" contentDisplay="TOP" mnemonicParsing="false" text="Area Chart" />
+            <Button id="btn-area-chart" contentDisplay="TOP" mnemonicParsing="false" onAction="#areaChart" text="Area Chart" />
           </children>
         </VBox>
       </children>
