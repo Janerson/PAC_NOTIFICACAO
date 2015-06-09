@@ -177,22 +177,33 @@ public class GraficoUtil {
             i++;
         }
     }
-    public static void showPieValue(PieChart chart){
-       for (Node node : chart.lookupAll(".chart-legend-item")){
-           if(node instanceof Text){
-               for (PieChart.Data data : chart.getData()){
-                   if (data.getName().equals(((Text) node).getText()));
+    public static void showPieValue(PieChart chart) {
+//       for (Node node : chart.lookupAll("Text.chart-pie-label")){
+//           if(node instanceof Text){
+//               for (PieChart.Data data : chart.getData()){
+//                   if (data.getName().equalsIgnoreCase(((Text) node).getText())){
+//                       ((Text) node).setText(String.format("%,.0f", data.getPieValue()));
+//                       System.out.println("Data: "+((Text) node).getText());
+//                   }
+//               }
+//           }
+//       }
+        for (Node node : chart.lookupAll("Text.chart-pie-label")) {
+            if(node instanceof Text) {
+              for(PieChart.Data data : chart.getData()) {
+                 if(data.getName().equals(((Text) node).getText())) ;
                    ((Text) node).setText(String.format("%,.0f", data.getPieValue()));
-               }
-           }
-       }
+              }
+            }
+        }
     }
+
     public static void pierChartCSSLegendItem(PieChart pieChart){
         int i = 0;
+        ObservableList<PieChart.Data> data = pieChart.getData();
         for (Node node : pieChart.lookupAll(".chart-legend-item")) {
             if (node instanceof Label && ((Label) node).getGraphic() != null) {
-                ((Label) node).getGraphic().getStyleClass().remove("default-color" + i);
-                ((Label) node).getGraphic().getStyleClass().add("default-color" +i);
+                ((Label) node).setText(data.get(i).getName()+" - "+data.get(i).getPieValue());
             }
             i++;
         }

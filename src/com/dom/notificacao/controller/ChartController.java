@@ -138,22 +138,29 @@ public class ChartController implements Initializable {
 
     @FXML
     public void saveAsImage(){
-        AnchorPane pane = (AnchorPane) tabChart.getSelectionModel().getSelectedItem().getContent();
-        WritableImage image = pane.snapshot(new SnapshotParameters(), null);
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("IMAGE files (*.png)", "*.png");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showSaveDialog(null);
-        File images = new File(file.getAbsoluteFile()+".png");
+        if(bdSexo.getCenter() != null){
+            AnchorPane pane = (AnchorPane) tabChart.getSelectionModel().getSelectedItem().getContent();
 
-        try {
-            if (file != null) {
+            WritableImage image = pane.snapshot(new SnapshotParameters(), null);
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("IMAGE files (*.png)", "*.png");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(null);
+            File images = new File(file.getAbsoluteFile()+".png");
 
-                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", images);
+            try {
+                if (file != null) {
+
+                    ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", images);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }else{
+            ValidationHelper.showWarning("Nenhum modelo de gráfico selecionado", "ATENÇÃO" ,"Opss!");
         }
+
+
     }
     @FXML
     public void showTypeOfChart(){
@@ -188,9 +195,9 @@ public class ChartController implements Initializable {
                 p.setData(data);
                 showTypeOfChart();
                 setCaption(p);
-                GraficoUtil.showPieValue(p);
+                //GraficoUtil.showPieValue(p);
                 //GraficoUtil.pierChartCSS(p);
-                //GraficoUtil.pierChartCSSLegendItem(p);
+                GraficoUtil.pierChartCSSLegendItem(p);
                 showTypeOfChart();
             }else{
                 ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");
