@@ -17,10 +17,7 @@ import javafx.util.Duration;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by DOM on 19/01/2015.
@@ -92,7 +89,7 @@ public class GraficoUtil {
      final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         ObservableList<XYChart.Series> series = FXCollections.observableArrayList();
 
-        Set<Date> distinctSet = new HashSet<>();
+        Set<Date> distinctSet = new TreeSet<>();
         XYChart.Series<String , Number> masc = new XYChart.Series();
         masc.setName("MASCULINO");
         XYChart.Series<String , Number> fem = new XYChart.Series();

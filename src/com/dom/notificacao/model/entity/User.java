@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -71,6 +72,9 @@ public class User {
 
     public ObservableList<Notificacao> listar(NotificacaoDAO dao){
         return FXCollections.observableArrayList(dao.getAll());
+    }
+    public ObservableList<Notificacao> listBetweenDate(NotificacaoDAO dao , Date start , Date end){
+        return FXCollections.observableArrayList(dao.filterBetweenDate(start , end));
     }
 
     public boolean deletar(NotificacaoDAO dao, Notificacao n){

@@ -4,6 +4,7 @@ import com.dom.notificacao.config.Config;
 import com.dom.notificacao.config.UserSingleton;
 import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.Notificacao;
+import com.dom.notificacao.model.entity.User;
 import com.dom.notificacao.model.helper.FxmlHelper;
 import com.dom.notificacao.model.helper.ValidationHelper;
 import eu.schudt.javafx.controls.calendar.DatePicker;
@@ -27,11 +28,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -80,6 +80,8 @@ public class TableViewController implements Initializable {
     @FXML private AnchorPane apSlide;
     @FXML private GridPane gridPane;
 
+    User user;
+
     private final SimpleDateFormat FORMART_BR = new SimpleDateFormat("dd/MM/yyyy");
     private ObservableList<Notificacao> masterData = FXCollections.observableArrayList();
     private Config c = new Config();
@@ -93,6 +95,7 @@ public class TableViewController implements Initializable {
         initFilter();
         gridPane.add(dpDE,0,1);
         gridPane.add(dpATE,0,3);
+        user = UserSingleton.getInstance().getUser();
     }
     @FXML
     public void showFilterSlide(){
@@ -109,27 +112,18 @@ public class TableViewController implements Initializable {
             tt.play();
             isMenu = false;
         }
-
     }
+
+    //TODO - Validar Dados de entrada, tratar NPE.
     @FXML
     public void filterBetweenDate(){
-        ObservableList<Notificacao> list = FXCollections.observableArrayList();
-        LocalDate in = LocalDate.fromDateFields(dpDE.getSelectedDate());
-        LocalDate out = LocalDate.fromDateFields(dpATE.getSelectedDate());
-        int days = Days.daysBetween(in , out).getDays();
-        for(int i =0; i<days; i++){
-            for(int j = 0; j< masterData.size(); j++){
-                Notificacao n = masterData.get(j);
-                if(n.getHoje().compareTo(in.toDate())== 1) {
-                    System.out.println("Date: "+n.getHoje());
-                    list.add(n);
-                }
-            }
-            in.plusDays(i);
-        }
-        tbPaciente.getItems().clear();
-        tbPaciente.setItems(list);
+        Date end = dpATE.getSelectedDate();
+        Date start = dpDE.getSelectedDate();
+        tbPaciente.setItems(user.listBetweenDate(new NotificacaoDAO() , start , end));
+        dpDE.setSelectedDate(null);
+        dpATE.setSelectedDate(null);
     }
+
     private void initTableColumn(){
         tbAction.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Object , Boolean>, ObservableValue<Boolean>>() {
             @Override
@@ -218,9 +212,14 @@ public class TableViewController implements Initializable {
         masterData.setAll(obs);
         tbPaciente.getColumns().get(0).setVisible(false);
         tbPaciente.getColumns().get(0).setVisible(true);
-
-
+        tbPaciente.setItems(obs);
     }
+
+    @FXML
+    public void refresh(){
+        FormMainControlller.frmController.listService();
+    }
+
 
     @FXML
     public void notificar(){

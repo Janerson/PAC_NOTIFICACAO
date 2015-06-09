@@ -188,9 +188,9 @@ public class ChartController implements Initializable {
                 p.setData(data);
                 showTypeOfChart();
                 setCaption(p);
-               /* GraficoUtil.showPieValue(p);
-                GraficoUtil.pierChartCSS(p);
-                GraficoUtil.pierChartCSSLegendItem(p);*/
+                GraficoUtil.showPieValue(p);
+                //GraficoUtil.pierChartCSS(p);
+                //GraficoUtil.pierChartCSSLegendItem(p);
                 showTypeOfChart();
             }else{
                 ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");

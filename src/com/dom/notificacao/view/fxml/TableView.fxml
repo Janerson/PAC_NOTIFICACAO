@@ -11,12 +11,17 @@
   <children>
     <AnchorPane prefHeight="67.94000244140625" prefWidth="768.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Button id="btn-filter" layoutY="7.0" mnemonicParsing="false" onAction="#notificar" prefHeight="34.0" prefWidth="111.0" text="NOTIFICAR" textFill="WHITE" AnchorPane.rightAnchor="130.0">
-          <font>
-            <Font name="System Bold" size="15.0" fx:id="x1" />
-          </font>
-        </Button>
-        <Button id="btn-filter" font="$x1" layoutY="7.0" mnemonicParsing="false" onAction="#showFilterSlide" prefHeight="34.0" prefWidth="103.0" text="FILTRAR" textFill="WHITE" AnchorPane.rightAnchor="14.0" />
+        <HBox id="HBox" alignment="CENTER" layoutY="15.0" spacing="5.0" AnchorPane.rightAnchor="10.0">
+          <children>
+            <Button id="btn-filter" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="111.0" text="ATUALIZAR" textFill="WHITE">
+              <font>
+                <Font name="System Bold" size="15.0" fx:id="x1" />
+              </font>
+            </Button>
+            <Button id="btn-filter" font="$x1" mnemonicParsing="false" onAction="#notificar" prefHeight="34.0" prefWidth="111.0" text="NOTIFICAR" textFill="WHITE" />
+            <Button id="btn-filter" font="$x1" mnemonicParsing="false" onAction="#showFilterSlide" prefHeight="34.0" prefWidth="103.0" text="FILTRAR" textFill="WHITE" />
+          </children>
+        </HBox>
         <Text fill="#00a3ff" layoutY="37.0" scaleX="3.9179774185825136" scaleY="4.26340671067341" strokeType="OUTSIDE" strokeWidth="0.0" text="Notificação" AnchorPane.leftAnchor="101.0" />
       </children>
     </AnchorPane>

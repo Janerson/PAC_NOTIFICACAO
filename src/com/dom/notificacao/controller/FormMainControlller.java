@@ -102,7 +102,8 @@ public class FormMainControlller extends AboutController implements Initializabl
             @Override
             public void handle(WorkerStateEvent workerStateEvent) {
                 TableViewController.tbController.getMasterData().clear();
-                TableViewController.tbController.getMasterData().addAll(service.getValue());
+                //TableViewController.tbController.getMasterData().addAll(service.getValue());
+                TableViewController.tbController.preencherTabela(service.getValue());
             }
         });
 
