@@ -4,7 +4,7 @@ import com.dom.notificacao.config.Config;
 import com.dom.notificacao.config.UserSingleton;
 import com.dom.notificacao.model.dao.entitydao.UserDAO;
 import com.dom.notificacao.model.entity.User;
-import com.dom.notificacao.model.helper.FxmlHelper;
+import com.dom.notificacao.view.fxml.FxmlHelper;
 import com.dom.notificacao.model.helper.ValidationHelper;
 import com.dom.notificacao.validator.BeanCheckConstraints;
 import com.dom.notificacao.view.animation.FadeInLeftTransition;

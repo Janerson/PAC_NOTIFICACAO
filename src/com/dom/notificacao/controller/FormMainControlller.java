@@ -5,7 +5,7 @@ import com.dom.notificacao.config.Config;
 import com.dom.notificacao.config.UserSingleton;
 import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.User;
-import com.dom.notificacao.model.helper.FxmlHelper;
+import com.dom.notificacao.view.fxml.FxmlHelper;
 import com.dom.notificacao.view.LoadResource;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -108,7 +108,7 @@ public class FormMainControlller extends AboutController implements Initializabl
         });
 
     }
-    //TODO - Tratar evento do clique na ListView
+
     public void listMouseClick(MouseEvent me){
         Config c = new Config();
         switch (listMenu.getSelectionModel().getSelectedIndex()){

@@ -5,8 +5,8 @@ import com.dom.notificacao.config.UserSingleton;
 import com.dom.notificacao.model.dao.entitydao.NotificacaoDAO;
 import com.dom.notificacao.model.entity.Notificacao;
 import com.dom.notificacao.model.entity.User;
-import com.dom.notificacao.model.helper.FxmlHelper;
 import com.dom.notificacao.model.helper.ValidationHelper;
+import com.dom.notificacao.view.fxml.FxmlHelper;
 import eu.schudt.javafx.controls.calendar.DatePicker;
 import javafx.animation.TranslateTransition;
 import javafx.beans.InvalidationListener;
@@ -28,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import jfxtras.labs.dialogs.DialogFX;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -235,6 +236,15 @@ public class TableViewController implements Initializable {
         final Hyperlink cellButtonEdit = new Hyperlink("Editar");
         final HBox hb = new HBox();
 
+        private int showDialog(String title , String question){
+            DialogFX dialog = new DialogFX(DialogFX.Type.QUESTION);
+            dialog.setTitleText(title);
+            dialog.setMessage(question);
+            return dialog.showDialog();
+
+            //dialog.
+        }
+
         ButtonCell(final TableView<Notificacao> tblView){
             cellButtonDelete.setStyle("-fx-text-fill: #2365b4");
             cellButtonEdit.setStyle("-fx-text-fill: #2365b4");
@@ -246,18 +256,11 @@ public class TableViewController implements Initializable {
                 public void handle(ActionEvent actionEvent) {
                     int row = getTableRow().getIndex();
                     tblView.getSelectionModel().select(row);
-                    Notificacao n = tblView.getSelectionModel().getSelectedItem();
-                    //Dialogs.DialogResponse response = Dialogs.showConfirmDialog(null , "Deseja realmente excluir este item?","Excluir" , Dialogs.DialogOptions.YES_NO);
-                    Dialogs.DialogResponse response = Dialogs.showConfirmDialog(null, "Deseja realmente excluir este item?",
-                            "Confirmar Exclusão", "Excluir", Dialogs.DialogOptions.OK_CANCEL);
-
-                    System.out.println("Resposta: "+response.name()+" "+response);
-
-                    if(response == Dialogs.DialogResponse.OK){
+                    final Notificacao n = tblView.getSelectionModel().getSelectedItem();
+                    if(showDialog("Confirmar Exclusão" ,"Deseja realmente excluir este item?") == 0){
                         UserSingleton.getInstance().getUser().deletar(new NotificacaoDAO() , n);
                         tblView.getItems().remove(n);
                     }
-
                 }
             });
 

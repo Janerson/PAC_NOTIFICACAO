@@ -34,17 +34,6 @@
     <orderEntry type="library" name="jfxtras-labs-2.2-r4" level="application" />
     <orderEntry type="library" name="Undecorator" level="application" />
     <orderEntry type="library" name="DatePicker2" level="application" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/javafx-dialogs-0.0.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/Downloads/javafx-dialogs-0.0.3.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="joda-time-2.8" level="application" />
     <orderEntry type="module-library">
       <library>
@@ -55,5 +44,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javafx-dialogs-0.0.4" level="application" />
+    <orderEntry type="library" name="javafx-dialog-1.2" level="application" />
   </component>
 </module>

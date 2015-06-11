@@ -88,4 +88,9 @@ public class User {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "User";
+    }
 }

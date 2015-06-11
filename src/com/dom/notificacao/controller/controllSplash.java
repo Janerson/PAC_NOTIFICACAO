@@ -9,7 +9,7 @@ package com.dom.notificacao.controller;
 import com.dom.notificacao.config.Config;
 import com.dom.notificacao.model.dao.entitydao.UserDAO;
 import com.dom.notificacao.model.entity.User;
-import com.dom.notificacao.model.helper.FxmlHelper;
+import com.dom.notificacao.view.fxml.FxmlHelper;
 import com.dom.notificacao.model.util.HibernateUtil;
 import com.dom.notificacao.view.animation.FadeInLeftTransition;
 import com.dom.notificacao.view.animation.FadeInRightTransition;

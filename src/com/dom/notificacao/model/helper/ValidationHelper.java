@@ -8,8 +8,8 @@ package com.dom.notificacao.model.helper;
 import com.dom.notificacao.model.dao.DAOImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.TextField;
+import jfxtras.labs.dialogs.DialogFX;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
@@ -73,14 +73,30 @@ public abstract class ValidationHelper {
 
 
     public static void showInformation(String msg , Object header) {
-        Dialogs.showInformationDialog(null ,msg ,header.toString() , header.toString());
+        //Dialogs.showInformationDialog(null ,msg ,header.toString() , header.toString());
+        //Dialog.showInfo(header.toString() , msg);
+        DialogFX dialog = new DialogFX();
+        dialog.setTitleText(header.toString());
+        dialog.setMessage(msg);
+        dialog.showDialog();
+
     }
     public static void showWarning(String erro , Object title , String top) {
-        Dialogs.showWarningDialog(null, erro, top, title.toString());
+        //Dialog.showError(title.toString() , erro);
+        DialogFX dialog = new DialogFX(DialogFX.Type.ERROR);
+        dialog.setTitleText(title.toString());
+        dialog.setMessage(top + "\n\n"+erro);
+        dialog.showDialog();
+
     }
 
     public static void showException(Exception e ,String msg , Object header){
-        Dialogs.showErrorDialog(null ,msg ,header.toString() , header.toString() , e);
+        //Dialogs.showErrorDialog(null ,msg ,header.toString() , header.toString() , e);
+        //Dialog.showThrowable(header.toString(),msg,e);
+        DialogFX dialog = new DialogFX(DialogFX.Type.ERROR);
+        dialog.setTitleText(header.toString());
+        dialog.setMessage(msg + "\n"+e.getLocalizedMessage());
+        dialog.showDialog();
     }
 
 

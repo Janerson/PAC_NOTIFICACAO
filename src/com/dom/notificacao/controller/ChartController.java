@@ -5,6 +5,7 @@ import com.dom.notificacao.model.entity.Notificacao;
 import com.dom.notificacao.model.helper.ValidationHelper;
 import com.dom.notificacao.model.util.GraficoUtil;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,6 +90,13 @@ public class ChartController implements Initializable {
         };
         dateAxis.setTickLabelFormatter(dateStringConverter);
         dateAxisArea.setTickLabelFormatter(dateStringConverter);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                setPierChart(pieChart, bdSexo, GraficoUtil.notificacaoSexo(listaNotificacao), "Notificação por Sexo");
+            }
+        });
+
     }
 
     @FXML
@@ -211,12 +219,18 @@ public class ChartController implements Initializable {
         l.getData().clear();
         try {
 
+            if(serie.get(0).getData().size() >0){
                 l.setTitle(title);
                 changeChart(l , p);
                 showTypeOfChart();
                 l.getData().addAll(serie);
                 GraficoUtil.lineChartCSS(l);
                 showTypeOfChart();
+            }
+            else{
+                ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");
+            }
+
 
         }catch (Exception e){
        e.printStackTrace();
@@ -224,15 +238,18 @@ public class ChartController implements Initializable {
     }
     void setBarChart(BarChart l , BorderPane p , String title , ObservableList<XYChart.Series>serie){
         l.getData().clear();
+      //  System.out.println("Série: "+serie.get(0).getData().size());
         try {
-
-            l.setTitle(title);
-            changeChart(l , p);
-            showTypeOfChart();
-            l.getData().addAll(serie);
-            GraficoUtil.barChartCSS(l);
-            showTypeOfChart();
-
+            if(serie.get(0).getData().size() > 0){
+                l.setTitle(title);
+                changeChart(l , p);
+                showTypeOfChart();
+                l.getData().addAll(serie);
+                GraficoUtil.barChartCSS(l);
+                showTypeOfChart();
+            }else{
+                ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -240,13 +257,15 @@ public class ChartController implements Initializable {
     void setAreaChart(AreaChart l , BorderPane p , String title , ObservableList<XYChart.Series>serie){
         l.getData().clear();
         try {
-            l.setTitle(title);
-            changeChart(l , p);
-            showTypeOfChart();
-            l.getData().addAll(serie);
-
-            showTypeOfChart();
-
+            if(serie.get(0).getData().size() > 0){
+                l.setTitle(title);
+                changeChart(l , p);
+                showTypeOfChart();
+                l.getData().addAll(serie);
+                showTypeOfChart();
+            }else{
+                ValidationHelper.showInformation("Sem dados para serem exibidos" , "Sem dados");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

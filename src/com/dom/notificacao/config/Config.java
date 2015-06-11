@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -38,7 +39,7 @@ public class Config {
     public Config() {
     }
 
-
+    private final Image icone = new Image(getClass().getResourceAsStream("icone.png"));
     
       public void loadStage(Stage stage, Label lb, URL load, String judul, boolean resize, StageStyle style, boolean maximized){
         try {
@@ -63,6 +64,7 @@ public class Config {
 
     public void LoadMain(Button lb, URL load){
         try {
+
             final Stage st = new Stage();
             Stage stage = (Stage) lb.getScene().getWindow();
             Parent root = FXMLLoader.load(load);
@@ -84,6 +86,7 @@ public class Config {
                 }
             });
 
+            st.getIcons().add(icone);
             st.setScene(new Scene(root));
             st.show();
             stage.close();
